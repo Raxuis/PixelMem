@@ -2,10 +2,12 @@ import {Text} from "@/components/ui/text";
 import {View} from "@/components/Themed";
 import {Image} from "@/components/ui/image";
 import {Button} from "@/components/ui/button";
+import {useRouter} from "expo-router";
 
 export default function TabOneScreen() {
+    const router = useRouter();
     return (
-        <View className="size-full flex flex-col justify-center items-center">
+        <View className="min-h-screen min-w-screen flex flex-col justify-center items-center">
             <Image
                 source={require('@/assets/images/icon.png')}
                 className="h-44 w-44 object-cover"
@@ -22,6 +24,9 @@ export default function TabOneScreen() {
                 <Button
                     action="primary"
                     className="w-full mx-4"
+                    onPress={() => {
+                        router.push('/camera');
+                    }}
                 >
                     <Text className="text-white mx-auto">Jouer</Text>
                 </Button>
