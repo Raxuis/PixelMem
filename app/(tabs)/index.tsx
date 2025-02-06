@@ -31,8 +31,9 @@ export default function Homepage() {
                 <View className="flex flex-row gap-4">
                     <Button
                         action={
-                            selectedMode === '2x2' ? 'positive' : 'negative'
+                            selectedMode === '2x2' ? 'secondary' : 'tertiary'
                         }
+                        className={selectedMode !== '2x2' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('2x2');
                         }}
@@ -41,8 +42,9 @@ export default function Homepage() {
                     </Button>
                     <Button
                         action={
-                            selectedMode === '4x4' ? 'positive' : 'negative'
+                            selectedMode === '4x4' ? 'secondary' : 'tertiary'
                         }
+                        className={selectedMode !== '4x4' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('4x4');
                         }}
@@ -52,8 +54,9 @@ export default function Homepage() {
 
                     <Button
                         action={
-                            selectedMode === '8x8' ? 'positive' : 'negative'
+                            selectedMode === '8x8' ? 'secondary' : 'tertiary'
                         }
+                        className={selectedMode !== '8x8' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('8x8');
                         }}
