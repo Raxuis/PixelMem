@@ -1,12 +1,13 @@
 import {useRef, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {CameraView, useCameraPermissions} from 'expo-camera';
-import {CameraIcon, Cross, Plus, RefreshCcw, X} from "lucide-react-native";
+import {CameraIcon, RefreshCcw, X} from "lucide-react-native";
 import {HStack} from "@/components/ui/hstack";
 import {useRouter} from "expo-router";
 import {Button} from "@/components/ui/button";
 import {usePhotoStore} from "@/store/store";
 import uuid from 'react-native-uuid';
+import * as Haptics from 'expo-haptics';
 
 const Camera = () => {
     const router = useRouter();
@@ -60,8 +61,6 @@ const Camera = () => {
             }
 
             setPhotos([...photos, newPhoto]);
-
-            console.log(photos);
         }
     };
 
@@ -125,7 +124,10 @@ const Camera = () => {
                     </ScrollView>
                     {photos.length >= 2 && (
                         <View>
-                            <Button onPress={() => router.push('/game')}>
+                            <Button onPress={() => {
+                                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                                router.push('/game');
+                            }}>
                                 <Text className="text-white font-spaceMono">Jouer avec ces images</Text>
                             </Button>
                         </View>

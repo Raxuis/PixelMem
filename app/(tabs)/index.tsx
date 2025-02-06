@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button";
 import {useRouter} from "expo-router";
 import {useGameStore} from "@/store/store";
 import {useState} from "react";
+import * as Haptics from "expo-haptics";
 
 export default function Homepage() {
     const router = useRouter();
@@ -36,6 +37,7 @@ export default function Homepage() {
                         className={selectedMode !== '2x2' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('2x2');
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
                         <Text className="text-white mx-auto">2x2</Text>
@@ -47,6 +49,7 @@ export default function Homepage() {
                         className={selectedMode !== '4x4' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('4x4');
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
                         <Text className="text-white mx-auto">4x4</Text>
@@ -59,6 +62,7 @@ export default function Homepage() {
                         className={selectedMode !== '8x8' ? 'text-black' : 'text-white'}
                         onPress={() => {
                             setSelectedMode('8x8');
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
                         <Text className="text-white mx-auto">8x8</Text>
@@ -69,6 +73,7 @@ export default function Homepage() {
                     action="primary"
                     className="w-full mx-4"
                     onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                         router.push('/camera');
                         setGameMode(selectedMode);
                     }}

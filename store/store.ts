@@ -1,9 +1,5 @@
 import {create} from 'zustand';
-
-type Photo = {
-    id: string;
-    uri: string;
-}
+import {Card, GameMode, Photo} from "@/types";
 
 type PhotoStore = {
     photos: Photo[];
@@ -11,11 +7,13 @@ type PhotoStore = {
     removePhoto: (id: string) => void;
 }
 
-type GameMode = "2x2" | "4x4" | "8x8";
-
 type GameStore = {
     gameMode: GameMode;
     setGameMode: (gameMode: GameMode) => void;
+    score: number;
+    setScore: (score: number) => void;
+    flippedCards: Card[];
+    setFlippedCards: (flippedCards: Card[]) => void;
 }
 
 export const usePhotoStore = create<PhotoStore>((set) => ({
@@ -26,5 +24,9 @@ export const usePhotoStore = create<PhotoStore>((set) => ({
 
 export const useGameStore = create<GameStore>((set) => ({
     gameMode: "2x2",
-    setGameMode: (gameMode: GameMode) => set({gameMode})
+    setGameMode: (gameMode: GameMode) => set({gameMode}),
+    score: 0,
+    setScore: (score: number) => set({score}),
+    flippedCards: [],
+    setFlippedCards: (flippedCards) => set({flippedCards}),
 }));
