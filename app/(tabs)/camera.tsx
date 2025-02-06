@@ -1,16 +1,18 @@
 import {useRef, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {CameraView, useCameraPermissions} from 'expo-camera';
-import {CameraIcon, RefreshCcw} from "lucide-react-native";
+import {CameraIcon, Cross, Plus, RefreshCcw, X} from "lucide-react-native";
 import {HStack} from "@/components/ui/hstack";
 import {useRouter} from "expo-router";
 import {Button} from "@/components/ui/button";
+import {usePhotoStore} from "@/store/store";
+import uuid from 'react-native-uuid';
 
 const Camera = () => {
     const router = useRouter();
+    const {photos, setPhotos, removePhoto} = usePhotoStore();
     const [facing, setFacing] = useState<"front" | "back">('back');
     const [permission, requestPermission] = useCameraPermissions();
-    const [photos, setPhotos] = useState<string[]>([]);
     const cameraRef = useRef<CameraView>(null);
     const styles = StyleSheet.create({
         container: {
@@ -51,7 +53,13 @@ const Camera = () => {
                 base64: true
             });
             if (!photo) return;
-            setPhotos([...photos, photo.uri]);
+
+            const newPhoto = {
+                id: uuid.v4(),
+                uri: photo.uri,
+            }
+
+            setPhotos([...photos, newPhoto]);
 
             console.log(photos);
         }
@@ -93,15 +101,25 @@ const Camera = () => {
                 </View>
             </CameraView>
             {!!photos.length && (
-                <View className="flex flex-col gap-4 mx-8 my-12">
+                <View className="flex flex-col gap-4 px-8 py-12">
                     <ScrollView className="flex flex-row" horizontal showsHorizontalScrollIndicator={false}>
                         <HStack space="md" reversed>
                             {photos.map((photo, index) => (
-                                <Image
-                                    key={index}
-                                    source={{uri: photo}}
-                                    className="size-24 rounded-lg"
-                                />
+                                <View key={index} className="w-24 h-24 rounded-lg overflow-hidden relative">
+                                    <Image
+                                        source={{uri: photo.uri}}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <View className="absolute top-0 right-0 rounded-full p-1">
+                                        <TouchableOpacity
+                                            hitSlop={{top: 2, right: 2, bottom: 2, left: 2}}
+                                            onPress={() => {
+                                                removePhoto(photo.id);
+                                            }} className="bg-white/50 rounded-full">
+                                            <X size={18} color="black"/>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             ))}
                         </HStack>
                     </ScrollView>

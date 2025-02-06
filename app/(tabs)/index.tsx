@@ -3,9 +3,16 @@ import {View} from "@/components/Themed";
 import {Image} from "@/components/ui/image";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "expo-router";
+import {useGameStore} from "@/store/store";
+import {useState} from "react";
 
-export default function TabOneScreen() {
+export default function Homepage() {
     const router = useRouter();
+    const {gameMode, setGameMode} = useGameStore();
+
+    const [selectedMode, setSelectedMode] = useState(gameMode);
+
+
     return (
         <View className="min-h-screen min-w-screen flex flex-col justify-center items-center">
             <Image
@@ -21,11 +28,46 @@ export default function TabOneScreen() {
                     </Text>
                 </View>
 
+                <View className="flex flex-row gap-4">
+                    <Button
+                        action={
+                            selectedMode === '2x2' ? 'positive' : 'negative'
+                        }
+                        onPress={() => {
+                            setSelectedMode('2x2');
+                        }}
+                    >
+                        <Text className="text-white mx-auto">2x2</Text>
+                    </Button>
+                    <Button
+                        action={
+                            selectedMode === '4x4' ? 'positive' : 'negative'
+                        }
+                        onPress={() => {
+                            setSelectedMode('4x4');
+                        }}
+                    >
+                        <Text className="text-white mx-auto">4x4</Text>
+                    </Button>
+
+                    <Button
+                        action={
+                            selectedMode === '8x8' ? 'positive' : 'negative'
+                        }
+                        onPress={() => {
+                            setSelectedMode('8x8');
+                        }}
+                    >
+                        <Text className="text-white mx-auto">8x8</Text>
+                    </Button>
+                </View>
+
                 <Button
                     action="primary"
                     className="w-full mx-4"
                     onPress={() => {
                         router.push('/camera');
+                        setGameMode(selectedMode);
                     }}
                 >
                     <Text className="text-white mx-auto">Jouer</Text>

@@ -1,11 +1,30 @@
 import {create} from 'zustand';
 
-type Store = {
-    photos: string[];
-    addPhoto: (photo: string) => void;
+type Photo = {
+    id: string;
+    uri: string;
 }
 
-const usePhotoStore = create<Store>((set) => ({
+type PhotoStore = {
+    photos: Photo[];
+    setPhotos: (photos: Photo[]) => void;
+    removePhoto: (id: string) => void;
+}
+
+type GameMode = "2x2" | "4x4" | "8x8";
+
+type GameStore = {
+    gameMode: GameMode;
+    setGameMode: (gameMode: GameMode) => void;
+}
+
+export const usePhotoStore = create<PhotoStore>((set) => ({
     photos: [],
-    addPhoto: (photo) => set((state) => ({photos: [...state.photos, photo]})),
+    setPhotos: (photos: Photo[]) => set({photos}),
+    removePhoto: (id) => set((state) => ({photos: state.photos.filter((photo) => photo.id !== id)}))
+}));
+
+export const useGameStore = create<GameStore>((set) => ({
+    gameMode: "2x2",
+    setGameMode: (gameMode: GameMode) => set({gameMode})
 }));
