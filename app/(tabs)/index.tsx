@@ -57,15 +57,15 @@ export default function Homepage() {
 
                     <Button
                         action={
-                            selectedMode === '8x8' ? 'secondary' : 'tertiary'
+                            selectedMode === '6x6' ? 'secondary' : 'tertiary'
                         }
-                        className={selectedMode !== '8x8' ? 'text-black' : 'text-white'}
+                        className={selectedMode !== '6x6' ? 'text-black' : 'text-white'}
                         onPress={() => {
-                            setSelectedMode('8x8');
+                            setSelectedMode('6x6');
                             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
-                        <Text className="text-white mx-auto">8x8</Text>
+                        <Text className="text-white mx-auto">6x6</Text>
                     </Button>
                 </View>
 

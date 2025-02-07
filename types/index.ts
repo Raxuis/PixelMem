@@ -3,7 +3,7 @@ export type Photo = {
     uri: string;
 }
 
-export type GameMode = "2x2" | "4x4" | "8x8";
+export type GameMode = "2x2" | "4x4" | "6x6";
 
 export interface Card {
     id: string;

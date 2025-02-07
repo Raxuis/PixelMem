@@ -4,18 +4,20 @@ import {usePhotoStore, useGameStore} from "@/store/store";
 import {Image} from "@/components/ui/image";
 import {chunkArray, getRandomColor} from "@/utils";
 import {Text} from "@/components/ui/text";
-import {Card} from '@/types';
+import {Card, GameMode} from '@/types';
 import {useRouter} from "expo-router";
 import * as Haptics from 'expo-haptics';
+import {Button} from "@/components/ui/button";
+import {SkipBack, Undo2} from "lucide-react-native";
 
-const getColumns = (gameMode: "2x2" | "4x4" | "8x8"): number => {
+const getColumns = (gameMode: GameMode): number => {
     switch (gameMode) {
         case "2x2":
             return 2;
         case "4x4":
             return 4;
-        case "8x8":
-            return 8;
+        case "6x6":
+            return 6;
         default:
             return 2;
     }
@@ -192,6 +194,19 @@ const Game = () => {
                         ))}
                     </View>
                 ))}
+                <Button
+                    action="primary"
+                    className="w-full m-4"
+                    onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                        router.push('/camera');
+                    }}
+                >
+                    <Undo2 size={20} color="white"/>
+                    <Text className="text-white font-spaceMono">
+                        Retour
+                    </Text>
+                </Button>
             </View>
         </SafeAreaView>
     );
