@@ -14,9 +14,15 @@ import useSound from "@/hooks/useSound";
 const Game = () => {
     const {photos} = usePhotoStore();
     const {
-        playSound
+        playSound: playFlipSound
     } = useSound(
         require('@/assets/sounds/card-flip.mp3')
+    )
+
+    const {
+        playSound: playWinSound
+    } = useSound(
+        require('@/assets/sounds/win.mp3')
     )
 
     const {
@@ -93,7 +99,7 @@ const Game = () => {
             return;
         }
 
-        playSound();
+        playFlipSound();
 
         // Get previous flipped card with the same id
         const updatedCards = cards.map(c =>
@@ -128,6 +134,7 @@ const Game = () => {
 
                 const allMatched = updatedCards.every(card => card.isMatched);
                 if (allMatched) {
+                    playWinSound();
                     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
                     Alert.alert("Félicitations!", "Vous avez gagné!", [
                         {
