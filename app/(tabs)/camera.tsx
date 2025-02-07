@@ -1,17 +1,25 @@
 import {useRef, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {CameraView, useCameraPermissions} from 'expo-camera';
-import {CameraIcon, RefreshCcw, X} from "lucide-react-native";
+import {CameraIcon, InfoIcon, RefreshCcw, X} from "lucide-react-native";
 import {HStack} from "@/components/ui/hstack";
 import {useRouter} from "expo-router";
-import {Button} from "@/components/ui/button";
+import {Button, ButtonText} from "@/components/ui/button";
 import {usePhotoStore} from "@/store/store";
 import uuid from 'react-native-uuid';
 import * as Haptics from 'expo-haptics';
+import {Badge, BadgeIcon, BadgeText} from "@/components/ui/badge";
+import PhotoModal from "@/components/PhotoModal";
+import {Photo} from "@/types";
 
 const Camera = () => {
     const router = useRouter();
     const {photos, setPhotos, removePhoto} = usePhotoStore();
+    const [showModal, setShowModal] = useState(false);
+    const [photo, setPhoto] = useState<Photo>({
+        uri: '',
+        id: ''
+    });
     const [facing, setFacing] = useState<"front" | "back">('back');
     const [permission, requestPermission] = useCameraPermissions();
     const cameraRef = useRef<CameraView>(null);
@@ -78,7 +86,9 @@ const Camera = () => {
             <View style={styles.container}>
                 <Text style={styles.message}>We need your permission to show the camera</Text>
                 <Button onPress={requestPermission}>
-                    Grant permission
+                    <ButtonText>
+                        Grant permission
+                    </ButtonText>
                 </Button>
             </View>
         );
@@ -90,6 +100,7 @@ const Camera = () => {
 
     return (
         <View style={styles.container}>
+
             <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -118,11 +129,23 @@ const Camera = () => {
                 </View>
             </CameraView>
             {!!photos.length && (
-                <View className="flex flex-col gap-4 px-8 py-12">
+                <View className="flex flex-col gap-8 px-8 pt-8 pb-12">
+                    <View className="mx-auto flex flex-col justify-center items-center">
+                        <Badge size="md" variant="solid" action="info" className="border">
+                            <BadgeIcon as={InfoIcon}/>
+                            <BadgeText className="ml-2">You need at least 2 pictures</BadgeText>
+                            <BadgeIcon as={InfoIcon} className="ml-2"/>
+                        </Badge>
+                    </View>
                     <ScrollView className="flex flex-row" horizontal showsHorizontalScrollIndicator={false}>
                         <HStack space="md" reversed>
                             {photos.map((photo, index) => (
-                                <View key={index} className="w-24 h-24 rounded-lg overflow-hidden relative">
+                                <TouchableOpacity key={index} className="w-24 h-24 rounded-lg overflow-hidden relative"
+                                                  onPress={() => {
+                                                      setPhoto(photo);
+                                                      setShowModal(true);
+                                                  }}
+                                >
                                     <Image
                                         source={{uri: photo.uri}}
                                         className="w-full h-full object-cover"
@@ -132,13 +155,14 @@ const Camera = () => {
                                             hitSlop={{top: 2, right: 2, bottom: 2, left: 2}}
                                             onPress={() => {
                                                 removePhoto(photo.id);
-                                            }} className="bg-white/50 rounded-full">
+                                            }}
+                                            className="bg-white/50 rounded-full">
                                             <Text className="text-black">
                                                 <X size={18} color="black"/>
                                             </Text>
                                         </TouchableOpacity>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             ))}
                         </HStack>
                     </ScrollView>
@@ -148,12 +172,19 @@ const Camera = () => {
                                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                                 router.push('/game');
                             }}>
-                                <Text className="text-white font-spaceMono">Jouer avec ces images</Text>
+                                <ButtonText className="text-white font-spaceMono">Jouer avec ces images</ButtonText>
                             </Button>
                         </View>
                     )}
                 </View>
             )}
+
+            <PhotoModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                photo={photo}
+            />
+
         </View>
     );
 }

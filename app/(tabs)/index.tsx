@@ -1,7 +1,7 @@
 import {Text} from "@/components/ui/text";
 import {View} from "@/components/Themed";
 import {Image} from "@/components/ui/image";
-import {Button} from "@/components/ui/button";
+import {Button, ButtonText} from "@/components/ui/button";
 import {useRouter} from "expo-router";
 import {useGameStore} from "@/store/store";
 import {useState} from "react";
@@ -40,7 +40,7 @@ export default function Homepage() {
                             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
-                        <Text className="text-white mx-auto">2x2</Text>
+                        <ButtonText className="text-white mx-auto">2x2</ButtonText>
                     </Button>
                     <Button
                         action={
@@ -52,7 +52,7 @@ export default function Homepage() {
                             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
-                        <Text className="text-white mx-auto">4x4</Text>
+                        <ButtonText className="text-white mx-auto">4x4</ButtonText>
                     </Button>
 
                     <Button
@@ -65,7 +65,7 @@ export default function Homepage() {
                             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                         }}
                     >
-                        <Text className="text-white mx-auto">6x6</Text>
+                        <ButtonText className="text-white mx-auto">6x6</ButtonText>
                     </Button>
                 </View>
 
@@ -78,7 +78,7 @@ export default function Homepage() {
                         setGameMode(selectedMode);
                     }}
                 >
-                    <Text className="text-white mx-auto">Jouer</Text>
+                    <ButtonText className="text-white mx-auto">Jouer</ButtonText>
                 </Button>
             </View>
         </View>

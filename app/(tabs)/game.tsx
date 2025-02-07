@@ -7,7 +7,7 @@ import {Text} from "@/components/ui/text";
 import {Card, GameMode} from '@/types';
 import {useRouter} from "expo-router";
 import * as Haptics from 'expo-haptics';
-import {Button} from "@/components/ui/button";
+import {Button, ButtonIcon, ButtonText} from "@/components/ui/button";
 import {Undo2} from "lucide-react-native";
 
 const getColumns = (gameMode: GameMode): number => {
@@ -216,12 +216,10 @@ const Game = () => {
                         router.push('/camera');
                     }}
                 >
-                    <Text className="text-white font-spaceMono">
-                        <Undo2 size={16} color="white"/>
-                    </Text>
-                    <Text className="text-white font-spaceMono">
+                    <ButtonIcon as={Undo2} width={16} className="text-white font-spaceMono"/>
+                    <ButtonText className="text-white font-spaceMono">
                         Retour
-                    </Text>
+                    </ButtonText>
                 </Button>
             </View>
         </SafeAreaView>
