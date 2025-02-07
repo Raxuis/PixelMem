@@ -127,10 +127,24 @@ const Game = () => {
                 const allMatched = updatedCards.every(card => card.isMatched);
                 if (allMatched) {
                     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                    Alert.alert("Félicitations!", "Vous avez gagné!");
-                    initializeGame();
-                    router.push('/');
+                    Alert.alert("Félicitations!", "Vous avez gagné!", [
+                        {
+                            text: 'Rejouer',
+                            onPress: () => {
+                                initializeGame();
+                            },
+                            style: 'cancel',
+                        },
+                        {
+                            text: "Changer de mode",
+                            onPress: () => {
+                                initializeGame();
+                                router.push('/');
+                            },
+                        }
+                    ]);
                 }
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             } else {
                 const updatedCards = currentCards.map(card =>
                     card.id === card1.id || card.id === card2.id
