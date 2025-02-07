@@ -196,13 +196,15 @@ const Game = () => {
                 ))}
                 <Button
                     action="primary"
-                    className="w-full m-4"
+                    className="w-1/2 m-4"
                     onPress={() => {
                         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                         router.push('/camera');
                     }}
                 >
-                    <Undo2 size={20} color="white"/>
+                    <Text className="text-white font-spaceMono">
+                        <Undo2 size={20} color="white"/>
+                    </Text>
                     <Text className="text-white font-spaceMono">
                         Retour
                     </Text>
