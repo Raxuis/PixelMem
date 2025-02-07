@@ -9,6 +9,7 @@ import {useRouter} from "expo-router";
 import * as Haptics from 'expo-haptics';
 import {Button, ButtonIcon, ButtonText} from "@/components/ui/button";
 import {Undo2} from "lucide-react-native";
+import useSound from "@/hooks/useSound";
 
 const getColumns = (gameMode: GameMode): number => {
     switch (gameMode) {
@@ -25,6 +26,12 @@ const getColumns = (gameMode: GameMode): number => {
 
 const Game = () => {
     const {photos} = usePhotoStore();
+    const {
+        playSound
+    } = useSound(
+        require('@/assets/sounds/card-flip.mp3')
+    )
+
     const {
         gameMode,
         score,
@@ -93,6 +100,8 @@ const Game = () => {
         if (isChecking || card.isMatched || card.isFlipped || flippedCards.length >= 2) {
             return;
         }
+
+        playSound();
 
         const updatedCards = cards.map(c =>
             c.id === card.id ? {...c, isFlipped: true} : c
@@ -216,8 +225,8 @@ const Game = () => {
                         router.push('/camera');
                     }}
                 >
-                    <ButtonIcon as={Undo2} width={16} className="text-white font-spaceMono"/>
-                    <ButtonText className="text-white font-spaceMono">
+                    <ButtonIcon as={Undo2} width={16} className="text-white"/>
+                    <ButtonText className="text-white">
                         Retour
                     </ButtonText>
                 </Button>

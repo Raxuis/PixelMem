@@ -133,7 +133,7 @@ const Camera = () => {
                     <View className="mx-auto flex flex-col justify-center items-center">
                         <Badge size="md" variant="solid" action="info" className="border">
                             <BadgeIcon as={InfoIcon}/>
-                            <BadgeText className="ml-2">You need at least 2 pictures</BadgeText>
+                            <BadgeText className="ml-2">Vous devez avoir au moins 2 photos</BadgeText>
                             <BadgeIcon as={InfoIcon} className="ml-2"/>
                         </Badge>
                     </View>
@@ -172,7 +172,7 @@ const Camera = () => {
                                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                                 router.push('/game');
                             }}>
-                                <ButtonText className="text-white font-spaceMono">Jouer avec ces images</ButtonText>
+                                <ButtonText className="text-white">Jouer avec ces images</ButtonText>
                             </Button>
                         </View>
                     )}

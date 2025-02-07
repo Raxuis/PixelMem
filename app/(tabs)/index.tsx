@@ -23,7 +23,7 @@ export default function Homepage() {
             />
             <View className="flex flex-col items-center px-10 pt-6 gap-4">
                 <View className="flex flex-col items-center px-10 gap-2">
-                    <Text size="3xl" className="font-spaceMono">PixelMem</Text>
+                    <Text size="3xl">PixelMem</Text>
                     <Text className="text-slate-500 text-xs text-center">
                         Un jeu de mémoire simple et amusant où vous pouvez jouer avec vos photos.
                     </Text>
