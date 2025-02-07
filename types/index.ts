@@ -10,6 +10,7 @@ export interface Card {
     uri?: string;
     isColor?: boolean;
     colorValue?: string;
+    emojiValue?: string;
     isFlipped: boolean;
     isMatched: boolean;
 }

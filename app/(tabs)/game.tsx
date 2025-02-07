@@ -2,27 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, TouchableOpacity, View, Alert} from "react-native";
 import {usePhotoStore, useGameStore} from "@/store/store";
 import {Image} from "@/components/ui/image";
-import {chunkArray, getRandomColor} from "@/utils";
+import {chunkArray, getColumns, getRandomColor, getRandomEmoji} from "@/utils";
 import {Text} from "@/components/ui/text";
-import {Card, GameMode} from '@/types';
+import {Card} from '@/types';
 import {useRouter} from "expo-router";
 import * as Haptics from 'expo-haptics';
 import {Button, ButtonIcon, ButtonText} from "@/components/ui/button";
 import {Undo2} from "lucide-react-native";
 import useSound from "@/hooks/useSound";
-
-const getColumns = (gameMode: GameMode): number => {
-    switch (gameMode) {
-        case "2x2":
-            return 2;
-        case "4x4":
-            return 4;
-        case "6x6":
-            return 6;
-        default:
-            return 2;
-    }
-};
 
 const Game = () => {
     const {photos} = usePhotoStore();
@@ -73,21 +60,25 @@ const Game = () => {
 
         for (let i = 0; i < remainingSpaces; i++) {
             const color = getRandomColor();
-            const colorCard1: Card = {
+            const emoji = getRandomEmoji();
+
+            const colorWithColorCard1: Card = {
                 id: `color-${i}-1`,
                 isColor: true,
                 colorValue: color,
+                emojiValue: emoji,
                 isFlipped: false,
                 isMatched: false
             };
-            const colorCard2: Card = {
+            const colorWithColorCard2: Card = {
                 id: `color-${i}-2`,
                 isColor: true,
                 colorValue: color,
+                emojiValue: emoji,
                 isFlipped: false,
                 isMatched: false
             };
-            gameCards.push(colorCard1, colorCard2);
+            gameCards.push(colorWithColorCard1, colorWithColorCard2);
         }
 
         gameCards = gameCards.sort(() => Math.random() - 0.5);
@@ -179,9 +170,13 @@ const Game = () => {
         if (card.isColor) {
             return (
                 <View
-                    className="w-full h-full rounded-lg"
+                    className="w-full h-full rounded-lg flex items-center justify-center"
                     style={{backgroundColor: card.colorValue}}
-                />
+                >
+                    <Text className="text-white text-2xl text-center">
+                        {card.emojiValue}
+                    </Text>
+                </View>
             );
         }
 
