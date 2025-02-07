@@ -32,6 +32,7 @@ const Camera = () => {
             flexDirection: 'row',
             backgroundColor: 'transparent',
             margin: 64,
+            position: 'relative',
         },
         button: {
             flex: 1,
@@ -91,10 +92,27 @@ const Camera = () => {
         <View style={styles.container}>
             <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+                    <TouchableOpacity
+                        style={[styles.button, {position: 'absolute', top: 0, left: 0}]}
+                        onPress={() => {
+                            router.push('/');
+                        }}
+                        hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}
+                    >
+                        <X size={30} color="white"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={toggleCameraFacing}
+                        hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}
+                    >
                         <RefreshCcw size={30} color="white"/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={takePhoto}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={takePhoto}
+                        hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}
+                    >
                         <CameraIcon size={30} color="white"/>
                     </TouchableOpacity>
                 </View>

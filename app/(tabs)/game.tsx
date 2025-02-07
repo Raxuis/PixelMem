@@ -8,7 +8,7 @@ import {Card, GameMode} from '@/types';
 import {useRouter} from "expo-router";
 import * as Haptics from 'expo-haptics';
 import {Button} from "@/components/ui/button";
-import {SkipBack, Undo2} from "lucide-react-native";
+import {Undo2} from "lucide-react-native";
 
 const getColumns = (gameMode: GameMode): number => {
     switch (gameMode) {
@@ -203,7 +203,7 @@ const Game = () => {
                     }}
                 >
                     <Text className="text-white font-spaceMono">
-                        <Undo2 size={20} color="white"/>
+                        <Undo2 size={16} color="white"/>
                     </Text>
                     <Text className="text-white font-spaceMono">
                         Retour
