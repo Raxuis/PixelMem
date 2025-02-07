@@ -44,7 +44,7 @@ const PhotoModal = (
                         className="flex-grow"
                     >
                         <ButtonIcon as={Undo2} width={16} className="text-primary-500"/>
-                        <ButtonText>Cancel</ButtonText>
+                        <ButtonText>Annuler</ButtonText>
                     </Button>
                     <Button
                         onPress={() => {
@@ -56,7 +56,7 @@ const PhotoModal = (
                     >
                         <ButtonIcon as={TrashIcon} width={12} className="text-white"/>
                         <ButtonText>
-                            Delete
+                            Supprimer
                         </ButtonText>
                     </Button>
                 </ModalFooter>

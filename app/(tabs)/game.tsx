@@ -37,6 +37,7 @@ const Game = () => {
     }, [photos, gameMode]);
 
     const initializeGame = () => {
+        // Start at 0 and go to the number of columns squared divided by 2
         const limitedPhotos = photos.slice(0, (columns * columns) / 2);
         const remainingSpaces = (columns * columns) / 2 - limitedPhotos.length;
 
@@ -94,6 +95,7 @@ const Game = () => {
 
         playSound();
 
+        // Get previous flipped card with the same id
         const updatedCards = cards.map(c =>
             c.id === card.id ? {...c, isFlipped: true} : c
         );
