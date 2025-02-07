@@ -133,7 +133,9 @@ const Camera = () => {
                                             onPress={() => {
                                                 removePhoto(photo.id);
                                             }} className="bg-white/50 rounded-full">
-                                            <X size={18} color="black"/>
+                                            <Text className="text-black">
+                                                <X size={18} color="black"/>
+                                            </Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
